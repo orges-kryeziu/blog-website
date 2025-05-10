@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kryeziu Restaurant</title>
+  <style>
+    body { 
+      margin: 0; 
+      font-family: 'Roboto', sans-serif; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6; 
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    header { 
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?restaurant,modern') no-repeat center center/cover; 
+      height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: white; 
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); 
+      text-align: center; 
+      padding: 0 3em; 
+    }
+
+    header h1 { 
+      font-size: 4.5rem; 
+      margin: 0; 
+      font-weight: 900; 
+      letter-spacing: 2px; 
+      animation: fadeIn 2s ease-in-out; 
+    }
+
+    header p { 
+      font-size: 1.6rem; 
+      margin-top: 1em; 
+      animation: fadeIn 2s ease-in-out; 
+      animation-delay: 0.5s; 
+    }
+
+    /* Navigation */
+    nav { 
+      background: rgba(0, 0, 0, 0.9); 
+      padding: 1.5em 0; 
+      text-align: center; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+
+    nav a { 
+      color: #fff; 
+      margin: 0 1.5em; 
+      text-decoration: none; 
+      font-weight: 500; 
+      font-size: 1.2rem; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover { 
+      color: #ff7043; 
+    }
+
+    /* Section Styling */
+    section { 
+      padding: 5em 2em; 
+      max-width: 1200px; 
+      margin: auto; 
+    }
+
+    h2 { 
+      text-align: center; 
+      font-size: 3rem; 
+      margin-bottom: 3em; 
+      color: #333; 
+      font-weight: 800; 
+      letter-spacing: 1px; 
+    }
+
+    /* Menu Items */
+    .menu-item { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin: 2em 0; 
+      padding: 1.5em; 
+      background: #fff; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+      border-radius: 12px; 
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-item:hover { 
+      transform: translateY(-10px); 
+    }
+
+    .menu-item h3 { 
+      margin: 0; 
+      font-size: 1.6rem; 
+      font-weight: 700; 
+      color: #ff7043; 
+    }
+
+    .menu-item button { 
+      padding: 0.8em 2em; 
+      background: #ff7043; 
+      color: #fff; 
+      border: none; 
+      border-radius: 30px; 
+      cursor: pointer; 
+      font-weight: 600; 
+      transition: background 0.3s ease;
+    }
+
+    .menu-item button:hover { 
+      background: #e64a19; 
+    }
+
+    /* Cart */
+    #cart { 
+      border: 1px solid #ddd; 
+      padding: 2em; 
+      margin-top: 2em; 
+      border-radius: 12px; 
+      background: #fff; 
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); 
+    }
+
+    #cart ul { 
+      list-style: none; 
+      padding: 0; 
+    }
+
+    #cart ul li { 
+      padding: 0.5em 0; 
+      border-bottom: 1px dashed #ccc; 
+    }
+
+    #checkout { 
+      margin-top: 2em; 
+      padding: 1em 2em; 
+      background: #2196f3; 
+      color: #fff; 
+      border: none; 
+      border-radius: 30px; 
+      cursor: pointer; 
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      transition: background 0.3s ease;
+    }
+
+    #checkout:hover { 
+      background: #1976d2; 
+    }
+
+    /* Features Section */
+    .features { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 3em; 
+      margin-top: 4em; 
+    }
+
+    .feature-card { 
+      background: #fff; 
+      border-radius: 12px; 
+      padding: 2.5em; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+      text-align: center; 
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover { 
+      transform: translateY(-8px); 
+    }
+
+    .feature-card h3 { 
+      margin-bottom: 1.5em; 
+      color: #ff7043; 
+      font-size: 1.7rem; 
+      font-weight: 700; 
+    }
+
+    .feature-card p { 
+      font-size: 1.1rem; 
+      color: #777; 
+    }
+
+    /* About Us Section */
+    .about-us { 
+      background: #fff; 
+      padding: 5em 2em; 
+      margin-top: 4em; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+      border-radius: 12px; 
+    }
+
+    .about-us h2 { 
+      color: #ff7043; 
+      font-size: 3rem; 
+      text-align: center; 
+      margin-bottom: 2.5em; 
+    }
+
+    .about-us p { 
+      font-size: 1.2rem; 
+      line-height: 1.8; 
+      color: #555; 
+      text-align: center; 
+      max-width: 900px; 
+      margin: 0 auto; 
+    }
+
+    /* Reservation Section */
+    .reservation { 
+      background: #fff; 
+      padding: 4em 2em; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+      margin-top: 5em; 
+    }
+
+    .reservation h2 { 
+      color: #ff7043; 
+      text-align: center; 
+      font-size: 2.5rem; 
+      margin-bottom: 2em; 
+    }
+
+    .reservation form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: grid; 
+      gap: 1.5em; 
+    }
+
+    .reservation input, .reservation textarea { 
+      padding: 1.2em; 
+      border: 1px solid #ddd; 
+      border-radius: 10px; 
+      font-size: 1rem; 
+    }
+
+    .reservation button { 
+      padding: 1em 2.5em; 
+      background: #ff7043; 
+      color: #fff; 
+      border: none; 
+      border-radius: 30px; 
+      cursor: pointer; 
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      transition: background 0.3s ease;
+    }
+
+    .reservation button:hover { 
+      background: #e64a19; 
+    }
+
+    #reservation-message { 
+      display: none; 
+      color: #4caf50; 
+      margin-top: 20px; 
+      text-align: center; 
+    }
+
+    /* Footer */
+    footer { 
+      text-align: center; 
+      padding: 2.5em; 
+      background: #0a0a0a; 
+      color: #ccc; 
+      font-size: 1rem; 
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 1.5em; }
+      header h1 { font-size: 3.5rem; }
+      header p { font-size: 1.3rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1.2em 0; }
+      nav a { font-size: 1rem; }
+      .menu-item { flex-direction: column; align-items: flex-start; }
+      .menu-item button { width: 100%; margin-top: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Welcome to Kryeziu</h1>
+      <p>Modern dining, reimagined with elegance.</p>
+    </div>
+  </header>
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#cart">Cart</a>
+    <a href="#features">Why Us</a>
+    <a href="#reservation">Reservations</a>
+    <a href="#about-us">About Us</a>
+  </nav>
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-item">
+      <h3>Margherita Pizza - $12</h3>
+      <button onclick="addToCart('Margherita Pizza', 12)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <h3>Spaghetti Carbonara - $15</h3>
+      <button onclick="addToCart('Spaghetti Carbonara', 15)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <h3>Grilled Salmon - $20</h3>
+      <button onclick="addToCart('Grilled Salmon', 20)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <h3>Caesar Salad - $10</h3>
+      <button onclick="addToCart('Caesar Salad', 10)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <h3>Chocolate Lava Cake - $8</h3>
+      <button onclick="addToCart('Chocolate Lava Cake', 8)">Add to Cart</button>
+    </div>
+  </section>
+  <section id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total: $<span id="total">0</span></strong></p>
+    <button id="checkout" onclick="checkout()">Checkout</button>
+  </section>
+  <section id="features">
+    <h2>Why Choose Kryeziu</h2>
+    <div class="features">
+      <div class="feature-card"><h3>Fresh Ingredients</h3><p>We source the freshest ingredients daily for an unforgettable taste.</p></div>
+      <div class="feature-card"><h3>Family Friendly</h3><p>Enjoy a cozy dining experience perfect for families and gatherings.</p></div>
+      <div class="feature-card"><h3>Fast Delivery</h3><p>Your meals delivered hot and fresh to your doorstep in no time.</p></div>
+      <div class="feature-card"><h3>Top Chefs</h3><p>Our world-class chefs bring innovation and tradition together in every dish.</p></div>
+    </div>
+  </section>
+  <section id="about-us" class="about-us">
+    <h2>About Us</h2>
+    <p>At Kryeziu, we believe in bringing people together through the love of food. Our restaurant offers a modern twist on classic dishes, using only the freshest ingredients. Whether you're here for a family dinner, a romantic evening, or a quick bite, we strive to provide an exceptional dining experience that you won’t forget. Join us and be a part of the Kryeziu story!</p>
+  </section>
+  <section class="reservation" id="reservation">
+    <h2>Make a Reservation</h2>
+    <form id="reservation-form" onsubmit="submitReservation(event)">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="date" id="date" required />
+      <textarea id="special-request" placeholder="Special Requests" rows="4"></textarea>
+      <button type="submit">Reserve Now</button>
+    </form>
+    <p id="reservation-message"></p>
+  </section>
+  <footer>
+    <p>&copy; 2025 Kryeziu Restaurant. All Rights Reserved.</p>
+  </footer>
+  <script>
+    let cart = [];
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      updateCart();
+    }
+    function updateCart() {
+      const cartItems = document.getElementById("cart-items");
+      const total = document.getElementById("total");
+      cartItems.innerHTML = cart.map(c => `<li>${c.item} - $${c.price}</li>`).join('');
+      const sum = cart.reduce((acc, c) => acc + c.price, 0);
+      total.textContent = sum;
+    }
+    function checkout() {
+      if (cart.length > 0) {
+        alert('Checkout successful! Thank you for dining with us.');
+        cart = [];
+        updateCart();
+      } else {
+        alert('Your cart is empty.');
+      }
+    }
+    function submitReservation(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const date = document.getElementById("date").value;
+      const specialRequest = document.getElementById("special-request").value;
+      const message = document.getElementById("reservation-message");
+      message.style.display = "block";
+      message.textContent = `Thank you, ${name}! Your reservation for ${date} is confirmed. We will send a confirmation email to ${email}.`;
+    }
+  </script>
+</body>
+</html>

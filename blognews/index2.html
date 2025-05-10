@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Counter-Strike Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff4500;
+            --secondary-color: #1f1f1f;
+            --accent-color: #e60000;
+            --text-color: #fff;
+            --background-color: #121212;
+            --link-color: #ff6347;
+            --scrollbar-bg: #333;
+            --scrollbar-thumb: #ff4500;
+            --card-bg: #292929;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --gradient-1: #ff4500;
+            --gradient-2: #e60000;
+            --modal-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 1.1em;
+            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 10px;
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            box-shadow: 0 15px 30px var(--shadow-color);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 5em;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        header p {
+            font-size: 1.8em;
+            color: #e6e6e6;
+            font-weight: 400;
+            margin-top: 20px;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            padding: 20px 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        nav a {
+            color: var(--text-color);
+            margin: 0 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        section {
+            padding: 80px 10%;
+            background-color: var(--secondary-color);
+            margin: 50px 0;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px var(--shadow-color);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        section h2 {
+            font-size: 3em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Video Section */
+        .video-section {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            padding: 50px;
+            text-align: center;
+        }
+
+        .video-section video {
+            width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px var(--shadow-color);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+            background-color: var(--primary-color);
+        }
+
+        .card h3 {
+            font-size: 2.2em;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .card .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card .btn:hover {
+            background-color: #ff6600;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: #999;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.1em;
+            border-top: 3px solid var(--primary-color);
+            position: relative;
+            z-index: 5;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .toggle-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            font-size: 1.2em;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #ff6600;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 4em;
+            }
+
+            header p {
+                font-size: 1.5em;
+            }
+
+            section {
+                padding: 40px 5%;
+            }
+
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+
+            .video-section video {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Counter-Strike Hub</h1>
+        <p>Your ultimate destination for all things Counter-Strike</p>
+    </header>
+
+    <nav>
+        <a href="#news">Latest News</a>
+        <a href="#tournaments">Tournaments</a>
+        <a href="#stats">Player Stats</a>
+        <a href="#about">About Us</a>
+    </nav>
+
+    <section id="news">
+        <h2>Latest News</h2>
+        <div class="card">
+            <h3>CS 2.0 Update Released!</h3>
+            <p>Check out the latest update for Counter-Strike 2.0. From new maps to enhanced anti-cheat mechanisms, this update will redefine your gameplay experience.</p>
+            <p><a href="#" class="btn">Read More</a></p>
+        </div>
+        <div class="card">
+            <h3>CS:GO World Championship 2025</h3>
+            <p>The most prestigious event of the year, the CS:GO World Championship 2025, is on its way! The best teams from all over the world are preparing to compete for the $5M prize pool.</p>
+            <p><a href="#" class="btn">Learn More</a></p>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <h2>Check Out Our Latest Gameplay Video</h2>
+        <video controls>
+            <source src="csgo-trailer.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <section id="tournaments">
+        <h2>Upcoming Tournaments</h2>
+        <div class="card">
+            <h3>CS:GO World Championship 2025</h3>
+            <p><strong>Date:</strong> May 15, 2025</p>
+            <p><strong>Location:</strong> Online</p>
+            <p><strong>Prize Pool:</strong> $5,000,000</p>
+            <p>Catch the top teams as they compete for glory in the most anticipated tournament of the year.</p>
+            <p><a href="#" class="btn">View Schedule</a></p>
+        </div>
+    </section>
+
+    <section id="stats">
+        <h2>Top Player Stats</h2>
+        <div class="card">
+            <h3>s1mple - Na'Vi</h3>
+            <p><strong>K/D Ratio:</strong> 1.35</p>
+            <p><strong>Recent Tournament Performance:</strong> ESL Pro League Season 13 MVP</p>
+            <p><strong>Notable Achievement:</strong> Considered one of the greatest CS:GO players of all time!</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="card">
+            <h3>Who We Are</h3>
+            <p>Counter-Strike Hub is your go-to source for the latest Counter-Strike news, tournaments, and player stats. Whether you're a casual player or a competitive pro, we’ve got everything you need!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Counter-Strike Hub | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>More About Counter-Strike</h2>
+            <p>Learn more about the world of Counter-Strike, its history, and its evolution in the gaming industry.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Modal functionality
+        var modal = document.getElementById("modal");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Open the modal
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        // Close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
+	
